@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehículos Comerciales - Catálogo Automotriz</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- ESTILOS GENERALES Y RESETEO --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        :root {
+            --amarillo: #ffcc00;
+            --amarillo-hover: #e6b800;
+            --gris-oscuro: #1c1c1c;
+            --negro-barra: #0b0b0b;
+            --texto-suave: #8c8c8c;
+            --borde: #e4e4e4;
+            --transicion: all 0.3s ease;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        .contenedor {
+            width: 90%;
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        /* --- 1. BARRA SUPERIOR --- */
+        .barra_superior {
+            background-color: var(--negro-barra);
+            color: #aaaaaa;
+            font-size: 11px;
+            padding: 10px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .contenedor_barra {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contacto span {
+            margin-right: 15px;
+        }
+        
+        .contacto i {
+            color: var(--amarillo);
+            margin-right: 4px;
+        }
+
+        .usuario a {
+            color: #aaaaaa;
+            text-decoration: none;
+            margin-left: 12px;
+            text-transform: uppercase;
+            transition: var(--transicion);
+        }
+
+        .usuario i {
+            margin-right: 5px;
+        }
+
+        .usuario a:hover {
+            color: var(--amarillo);
+        }
+
+        /* --- 2. MENÚ PRINCIPAL --- */
+        .menu_principal {
+            background-color: var(--gris-oscuro);
+            padding: 15px 0;
+        }
+
+        .contenedor_menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-weight: 300;
+            font-size: 22px;
+            text-transform: lowercase;
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.5px;
+        }
+
+        .logo strong {
+            font-weight: 700;
+        }
+
+        .texto_amarillo {
+            color: var(--amarillo);
+            font-weight: 700;
+        }
+
+        .navegacion a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: var(--transicion);
+        }
+
+        .navegacion a.activo, .navegacion a:hover {
+            color: var(--amarillo);
+        }
+
+        .boton_amarillo {
+            background-color: var(--amarillo);
+            color: #000000;
+            padding: 10px 18px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 11px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            transition: var(--transicion);
+        }
+
+        .boton_amarillo:hover {
+            background-color: var(--amarillo-hover);
+            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.2);
+        }
+
+        /* --- 3. HERO BANNER (SECCIÓN PRINCIPAL) --- */
+        .hero_section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=1200') center/cover;
+            padding: 90px 0 110px 0;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .hero_badge {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .hero_badge h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--amarillo);
+            line-height: 1;
+        }
+
+        .hero_badge p {
+            font-size: 18px;
+            font-weight: 300;
+            margin-top: 5px;
+        }
+        
+        .hero_badge .flecha_decorativa {
+            position: absolute;
+            left: -40px;
+            top: 10px;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .pestanas_busqueda {
+            display: flex;
+            gap: 2px;
+        }
+
+        .pestana {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: var(--transicion);
+        }
+
+        .pestana:hover:not(.activa) {
+            background-color: rgba(255, 204, 0, 0.2);
+            color: var(--amarillo);
+        }
+
+        .pestana.activa {
+            background-color: #111111;
+            border-top: 3px solid var(--amarillo);
+        }
+
+        .formulario_busqueda {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 25px 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .formulario_busqueda select, .formulario_busqueda input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #444;
+            background-color: #ffffff;
+            color: #333;
+            font-size: 12px;
+            outline: none;
+            transition: var(--transicion);
+        }
+
+        .formulario_busqueda select:hover, .formulario_busqueda input:hover {
+            border-color: var(--amarillo);
+        }
+
+        .btn_buscar {
+            background-color: var(--amarillo);
+            color: black;
+            border: none;
+            padding: 0 35px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: var(--transicion);
+        }
+
+        .btn_buscar:hover {
+            background-color: var(--amarillo-hover);
+        }
+
+        /* --- 4. CATÁLOGO DE VEHÍCULOS --- */
+        .seccion_catalogo {
+            padding: 50px 0 60px 0;
+        }
+
+        .cabecera_catalogo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .cabecera_catalogo h2 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .filtros_catalogo span {
+            font-size: 12px;
+            color: #666;
+            margin-left: 5px;
+            cursor: pointer;
+            padding: 6px 14px;
+            transition: var(--transicion);
+        }
+
+        .filtros_catalogo span:hover:not(.filtro_activo) {
+            background-color: #f5f5f5;
+            color: #111;
+        }
+
+        .filtros_catalogo .filtro_activo {
+            background-color: var(--amarillo);
+            color: black;
+            font-weight: 700;
+        }
+
+        /* Rejilla de Autos */
+        .rejilla_autos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .tarjeta_auto {
+            border: 1px solid var(--borde);
+            background-color: #ffffff;
+            position: relative;
+            transition: var(--transicion);
+        }
+
+        .tarjeta_auto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #ccc;
+        }
+        
+        .indicador_fotos {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 3px 8px;
+            font-size: 10px;
+            border-radius: 2px;
+            z-index: 2;
+        }
+
+        .contenedor_img_auto {
+            background-color: #f9f9f9;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .contenedor_img_auto img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: var(--transicion);
+        }
+
+        .tarjeta_auto:hover .contenedor_img_auto img {
+            transform: scale(1.05);
+        }
+
+        .info_auto {
+            padding: 15px;
+            position: relative;
+        }
+
+        .info_auto h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #111;
+            text-transform: uppercase;
+        }
+
+        .info_auto .ano {
+            font-size: 12px;
+            color: var(--texto-suave);
+            margin-top: 2px;
+            margin-bottom: 12px;
+        }
+
+        .precio_auto {
+            background-color: var(--amarillo);
+            color: black;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 10px;
+            float: right;
+            margin-top: -38px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .detalles_tecnicos {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 10px;
+            margin-top: 10px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .detalles_tecnicos span i {
+            margin-right: 4px;
+            color: #999;
+        }
+
+        .contenedor_boton_mas {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn_ver_mas {
+            background-color: var(--amarillo);
+            border: none;
+            padding: 12px 40px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: var(--transicion);
+        }
+
+        .btn_ver_mas:hover {
+            background-color: var(--amarillo-hover);
+            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
+        }
+
+        /* --- 5. FRANJA DE ESTADÍSTICAS --- */
+        .seccion_estadisticas {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1516576426665-ac89f7194982?q=80&w=1200') center/cover;
+            color: white;
+            padding: 50px 0;
+        }
+
+        .rejilla_estadisticas {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item_estadistica {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .item_estadistica i {
+            font-size: 32px;
+            color: #ffffff;
+        }
+
+        .item_estadistica h3 {
+            font-size: 28px;
+            color: white;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .item_estadistica p {
+            font-size: 11px;
+            color: #aaaaaa;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* --- 6. SECCIÓN NOTICIAS --- */
+        .seccion_noticias {
+            padding: 60px 0 70px 0;
+        }
+
+        .seccion_noticias h2 {
+            font-size: 22px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .rejilla_noticias {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .tarjeta_noticia {
+            border: 1px solid var(--borde);
+            background: #ffffff;
+            transition: var(--transicion);
+            cursor: pointer;
+        }
+
+        .tarjeta_noticia:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            border-color: #ccc;
+        }
+
+        .tarjeta_noticia img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .info_noticia {
+            padding: 20px;
+        }
+
+        .info_noticia h4 {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            color: #111;
+            transition: var(--transicion);
+        }
+
+        .tarjeta_noticia:hover h4 {
+            color: var(--amarillo-hover);
+        }
+
+        .info_noticia .meta_noticia {
+            display: flex;
+            gap: 15px;
+            font-size: 11px;
+            color: var(--texto-suave);
+        }
+        
+        .info_noticia .meta_noticia span i {
+            margin-right: 5px;
+        }
+
+        /* --- 7. PIE DE PÁGINA --- */
+        .pie_pagina {
+            background-color: var(--negro-barra);
+            color: #777777;
+            padding: 30px 0;
+            font-size: 12px;
+            border-top: 1px solid #1c1c1c;
+        }
+
+        .contenedor_pie {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .enlaces_pie a {
+            color: #777777;
+            text-decoration: none;
+            margin: 0 8px;
+            transition: var(--transicion);
+        }
+        
+        .enlaces_pie a:hover {
+            color: #ffffff;
+        }
+
+        /* Diseño Responsivo */
+        @media (max-width: 992px) {
+            .rejilla_autos { grid-template-columns: repeat(2, 1fr); }
+            .rejilla_noticias { grid-template-columns: 1fr; }
+            .formulario_busqueda { flex-direction: column; }
+            .rejilla_estadisticas { flex-direction: column; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="barra_superior">
+        <div class="contenedor contenedor_barra">
+            <div class="contacto">
+                <span><i class="fa-solid fa-phone"></i> +65 6732 1231</span>
+                <span><i class="fa-solid fa-location-dot"></i> 1001 Bukit Merah Lane 3, #01-75, Singapur 159718</span>
+                <span><i class="fa-solid fa-clock"></i> Lun - Sáb: 9:00 - 18:00</span>
+            </div>
+            <div class="usuario">
+                <a href="#"><i class="fa-solid fa-user"></i> Iniciar Sesión</a>
+                <a href="#"><i class="fa-solid fa-pen-to-square"></i> Registrarse</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="menu_principal">
+        <div class="contenedor contenedor_menu">
+            <div class="logo">
+                <i class="fa-solid fa-truck-front" style="color: var(--amarillo); margin-right: 8px;"></i>
+                <span>vehículos<strong>comerciales</strong></span>
+            </div>
+            <nav class="navegacion">
+                <a href="#" class="activo">INICIO</a>
+                <a href="#">NOSOTROS</a>
+                <a href="#">VEHÍCULOS</a>
+                <a href="#">CONCESIONARIOS</a>
+                <a href="#">CONTACTO</a>
+            </nav>
+            <a href="#" class="boton_amarillo">Publicar Vehículo</a>
+        </div>
+    </header>
+
+    <section class="hero_section">
+        <div class="contenedor">
+            <div class="hero_badge">
+                <span class="flecha_decorativa"><i class="fa-solid fa-arrow-turn-down"></i></span>
+                <h1>Más de 15,000</h1>
+                <p>Vehículos Disponibles</p>
+            </div>
+
+            <div class="pestanas_busqueda">
+                <button class="pestana activa">Cualquier condición</button>
+                <button class="pestana">Autos Nuevos</button>
+                <button class="pestana">Autos Usados</button>
+            </div>
+
+            <form class="formulario_busqueda">
+                <select><option>Seleccionar Marca</option></select>
+                <select><option>Seleccionar Modelo</option></select>
+                <select><option>Precio Máximo</option></select>
+                <input type="text" placeholder="Buscar por palabra clave...">
+                <button type="submit" class="btn_buscar"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+            </form>
+        </div>
+    </section>
+
+    <main class="seccion_catalogo contenedor">
+        <div class="cabecera_catalogo">
+            <h2>Autos Nuevos y Usados</h2>
+            <div class="filtros_catalogo">
+                <span>Artículos populares</span>
+                <span>Artículos recientes</span>
+                <span class="filtro_activo">Artículos destacados</span>
+            </div>
+        </div>
+
+        <div class="rejilla_autos">
+            <article class="tarjeta_auto">
+                <div class="indicador_fotos"><i class="fa-solid fa-camera"></i> 4</div>
+                <div class="contenedor_img_auto">
+                    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=400" alt="BMW Serie 5">
+                </div>
+                <div class="info_auto">
+                    <h3>BMW SERIE 5</h3>
+                    <p class="ano">2015</p>
+                    <span class="precio_auto">$45,000</span>
+                    <div class="detalles_tecnicos">
+                        <span><i class="fa-solid fa-gauge"></i> 80,000 km</span>
+                        <span><i class="fa-solid fa-gas-pump"></i> Gasolina</span>
+                        <span><i class="fa-solid fa-gear"></i> Automático</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tarjeta_auto">
+                <div class="indicador_fotos"><i class="fa-solid fa-camera"></i> 8</div>
+                <div class="contenedor_img_auto">
+                    <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?q=80&w=400" alt="BMW Serie 3">
+                </div>
+                <div class="info_auto">
+                    <h3>BMW SERIE 3</h3>
+                    <p class="ano">2015</p>
+                    <span class="precio_auto">$35,000</span>
+                    <div class="detalles_tecnicos">
+                        <span><i class="fa-solid fa-gauge"></i> 18,000 km</span>
+                        <span><i class="fa-solid fa-gas-pump"></i> Diésel</span>
+                        <span><i class="fa-solid fa-gear"></i> Automático</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tarjeta_auto">
+                <div class="indicador_fotos"><i class="fa-solid fa-camera"></i> 1</div>
+                <div class="contenedor_img_auto">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=400" alt="Hyundai Veloster">
+                </div>
+                <div class="info_auto">
+                    <h3>HYUNDAI VELOSTER</h3>
+                    <p class="ano">2015</p>
+                    <span class="precio_auto">$25,000</span>
+                    <div class="detalles_tecnicos">
+                        <span><i class="fa-solid fa-gauge"></i> 45,000 km</span>
+                        <span><i class="fa-solid fa-gas-pump"></i> Gasolina</span>
+                        <span><i class="fa-solid fa-gear"></i> Semiauto</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tarjeta_auto">
+                <div class="indicador_fotos"><i class="fa-solid fa-camera"></i> 4</div>
+                <div class="contenedor_img_auto">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=400" alt="Ford Explorer">
+                </div>
+                <div class="info_auto">
+                    <h3>FORD EXPLORER</h3>
+                    <p class="ano">2015</p>
+                    <span class="precio_auto">$65,000</span>
+                    <div class="detalles_tecnicos">
+                        <span><i class="fa-solid fa-gauge"></i> 38,000 km</span>
+                        <span><i class="fa-solid fa-gas-pump"></i> Gasolina</span>
+                        <span><i class="fa-solid fa-gear"></i> Automático</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tarjeta_auto">
+                <div class="indicador_fotos"><i class="fa-solid fa-camera"></i> 3</div>
+                <div class="contenedor_img_auto">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=400" alt="Chevrolet Malibu">
+                </div>
+                <div class="info_auto">
+                    <h3>CHEVROLET MALIBU</h3>
+                    <p class="ano">2015</p>
+                    <span class="precio_auto">$25,500</span>
+                    <div class="detalles_tecnicos">
+                        <span><i class="fa-solid fa-gauge"></i> 15,000 km</span>
+                        <span><i class="fa-solid fa-gas-pump"></i> Híbrido</span>
+                        <span><i class="fa-solid fa-gear"></i> Semiauto</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tarjeta_auto">
+                <div class="indicador_fotos"><i class="fa-solid fa-camera"></i> 2</div>
+                <div class="contenedor_img_auto">
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=400" alt="Chevrolet Cruze">
+                </div>
+                <div class="info_auto">
+                    <h3>CHEVROLET CRUZE</h3>
+                    <p class="ano">2015</p>
+                    <span class="precio_auto">$27,000</span>
+                    <div class="detalles_tecnicos">
+                        <span><i class="fa-solid fa-gauge"></i> 60,000 km</span>
+                        <span><i class="fa-solid fa-gas-pump"></i> Gasolina</span>
+                        <span><i class="fa-solid fa-gear"></i> Automático</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tarjeta_auto">
+                <div class="indicador_fotos"><i class="fa-solid fa-camera"></i> 5</div>
+                <div class="contenedor_img_auto">
+                    <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=400" alt="Nissan Altima">
+                </div>
+                <div class="info_auto">
+                    <h3>NISSAN ALTIMA</h3>
+                    <p class="ano">2015</p>
+                    <span class="precio_auto">$22,000</span>
+                    <div class="detalles_tecnicos">
+                        <span><i class="fa-solid fa-gauge"></i> 18,000 km</span>
+                        <span><i class="fa-solid fa-gas-pump"></i> Gasolina</span>
+                        <span><i class="fa-solid fa-gear"></i> Automático</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tarjeta_auto">
+                <div class="indicador_fotos"><i class="fa-solid fa-camera"></i> 6</div>
+                <div class="contenedor_img_auto">
+                    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=400" alt="Mercedes Benz">
+                </div>
+                <div class="info_auto">
+                    <h3>MERCEDES-BENZ CLASE C</h3>
+                    <p class="ano">2015</p>
+                    <span class="precio_auto">$54,000</span>
+                    <div class="detalles_tecnicos">
+                        <span><i class="fa-solid fa-gauge"></i> 32,000 km</span>
+                        <span><i class="fa-solid fa-gas-pump"></i> Diésel</span>
+                        <span><i class="fa-solid fa-gear"></i> Automático</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="contenedor_boton_mas">
+            <button class="btn_ver_mas">MOSTRAR TODO</button>
+        </div>
+    </main>
+
+    <section class="seccion_estadisticas">
+        <div class="contenedor rejilla_estadisticas">
+            <div class="item_estadistica">
+                <i class="fa-solid fa-car"></i>
+                <div>
+                    <h3>15500+</h3>
+                    <p>AUTOS EN VENTA</p>
+                </div>
+            </div>
+            <div class="item_estadistica">
+                <i class="fa-solid fa-users"></i>
+                <div>
+                    <h3>1750+</h3>
+                    <p>VISITAS POR DÍA</p>
+                </div>
+            </div>
+            <div class="item_estadistica">
+                <i class="fa-solid fa-comments"></i>
+                <div>
+                    <h3>3500+</h3>
+                    <p>RESEÑAS DE SOCIOS</p>
+                </div>
+            </div>
+            <div class="item_estadistica">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                    <h3>250+</h3>
+                    <p>VENDEDORES VERIFICADOS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion_noticias contenedor">
+        <h2>Noticias y Reseñas</h2>
+        <div class="rejilla_noticias">
+            <article class="tarjeta_noticia">
+                <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=400" alt="Tesla S">
+                <div class="info_noticia">
+                    <h4>Tesla Model S: El garaje secreto del coleccionista de autos más grande</h4>
+                    <div class="meta_noticia">
+                        <span><i class="fa-solid fa-calendar-days"></i> Noviembre 18, 2015</span>
+                        <span><i class="fa-solid fa-comment"></i> Sin comentarios</span>
+                    </div>
+                </div>
+            </article>
+            <article class="tarjeta_noticia">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=400" alt="Comprador">
+                <div class="info_noticia">
+                    <h4>Felicítate a ti mismo por ser un comprador de autos inteligente y astuto</h4>
+                    <div class="meta_noticia">
+                        <span><i class="fa-solid fa-calendar-days"></i> Diciembre 23, 2015</span>
+                        <span><i class="fa-solid fa-comment"></i> Sin comentarios</span>
+                    </div>
+                </div>
+            </article>
+            <article class="tarjeta_noticia">
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=400" alt="Mercedes">
+                <div class="info_noticia">
+                    <h4>Pusimos a prueba el nuevo Mercedes-Benz SLS AMG en la pista de carreras</h4>
+                    <div class="meta_noticia">
+                        <span><i class="fa-solid fa-calendar-days"></i> Diciembre 1, 2015</span>
+                        <span><i class="fa-solid fa-comment"></i> Sin comentarios</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="pie_pagina">
+        <div class="contenedor contenedor_pie">
+            <p>&copy; 2026 Vehículos Comerciales | Las marcas registradas pertenecen a sus respectivos dueños.</p>
+            <div class="enlaces_pie">
+                <a href="#">Términos de servicio</a> | 
+                <a href="#">Política de privacidad</a> | 
+                <a href="#">Opciones de anuncios</a> | 
+                <a href="#">Nosotros</a> | 
+                <a href="#">Contáctanos</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
